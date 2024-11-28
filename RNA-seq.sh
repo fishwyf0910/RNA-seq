@@ -41,39 +41,17 @@ do
   gatk SortSam -I ./4.mapping/"$f".sam -O ./4.mapping/"$f".sort.bam -SO coordinate --COMPRESSION_LEVEL 4 --TMP_DIR tmp && \
   rm ./4.mapping/"$f".sam
 fi
+
+  stringtie -p $core -G /data01/wangyf/project2/CyprinusCarpio/15.pop/7.annovar/new/genome/genome.gtf -o ./5.transcript_quant/"$f".gtf -l "$f"  ./4.mapping/"$f".sort.bam
+  stringtie --merge -p $core -G /data01/wangyf/project2/CyprinusCarpio/15.pop/7.annovar/new/genome/genome.gtf -o ./5.transcript_quant/stringtie_merged.gtf ./5.transcript_quant/stringtie_mergelist.txt #这一步是进入5.transcript_quant目录在本地跑的
+  stringtie -e -B -p 8 -G /data01/wangyf/project2/CyprinusCarpio/15.pop/7.annovar/new/genome/genome.gtf -o ./5.transcript_quant/2.quant_transcript/"$f"/"$f"_quant.gtf ./4.mapping/"$f".sort.bam
 done
 
 
 
 
-############5.Assamble Transcripts for Each Sample############
 
-# 设置要处理的 BAM 文件夹路径
-bam_folder="/data01/fanly/03_rnaseq/liver/02.alignment/sorted_bam"
 
-# 循环处理每个 BAM 文件
-input_dir="/data01/fanly/03_rnaseq/liver/02.alignment/sorted_bam"
-output_dir="/data01/fanly/03_rnaseq/liver/03.transcript_quant/1.assemble_transcript"
-cd /data01/fanly/03_rnaseq/liver/02.alignment/sorted_bam
-
-# 循环处理bam文件
-for bam_file in ${input_dir}/*.bam; do
-        # 提取bam——file前面的名字
-        filename=$(basename "$bam_file" .bam)
-        # 执行stringtie
-        stringtie -p 8 \
-		-G /data01/fanly/03_rnaseq/liver/00.ref/qdf_annotation_chr.gtf \
-		-o "$output_dir/${filename}.gtf" \
-		-l "${filename}" \   #指定转录本的标签，通常与文件名相同
-		"$input_dir/${filename}.bam"
-done
-
-# Merge Transcripts from All Samples
-stringtie \
---merge -p 16 \
--G /data01/fanly/03_rnaseq/liver/00.ref/qdf_annotation_chr.gtf \
--o /data01/fanly/03_rnaseq/liver/03.transcript_quant/1.assemble_transcript/stringtie_merged.gtf \
-/data01/fanly/03_rnaseq/liver/03.transcript_quant/1.assemble_transcript/stringtie_mergelist.txt
 
 ############6.Quantify############
 
