@@ -52,9 +52,10 @@ done
 # FPKM:适合于在同一样本中比较不同基因的表达量，但在多个样本间比较时可能会受到测序深度等因素的影响。
 # TPM:适合于跨样本比较基因表达量，尤其是当你需要跨样本、跨条件进行系统性比较时。
 
-# 获取raw_counts
-# samplelist.txt里面是每个样本的id和文件的完整路径（tab分隔）；id是每一列的表头
-# 最后得到gene_count_matrix.csv、transcript_count_matrix.csv
+# 获取TPM值
+conda activate py2
 python getTPM.py -i samplelist.txt
-# 提取TPM和FPKM可以使用修改后的脚本，最后有用的文件是transcript_count_matrix.csv
+# samplelist.txt里面是每个样本的id和文件的完整路径（tab分隔）；id是每一列的表头
+# cold-hb-brain-1 /data01/wangyf/project2/CyprinusCarpio/15.pop/19.supplementary/3.rna-seq/5.transcript_quant/2.quant_transcript/cold-hb-brain-1_quant.gtf
+# 最后得到gene_count_matrix.csv、transcript_count_matrix.csv，最后有用的文件是transcript_count_matrix.csv
 
