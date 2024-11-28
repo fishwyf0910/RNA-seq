@@ -56,6 +56,6 @@ done
 conda activate py2
 python getTPM.py -i samplelist.txt
 # samplelist.txt里面是每个样本的id和文件的完整路径（tab分隔）；id是每一列的表头
-# cold-hb-brain-1 /data01/wangyf/project2/CyprinusCarpio/15.pop/19.supplementary/3.rna-seq/5.transcript_quant/2.quant_transcript/cold-hb-brain-1_quant.gtf
+# eg.    cold-hb-brain-1 /data01/wangyf/project2/CyprinusCarpio/15.pop/19.supplementary/3.rna-seq/5.transcript_quant/2.quant_transcript/cold-hb-brain-1_quant.gtf
 # 最后得到gene_count_matrix.csv、transcript_count_matrix.csv，最后有用的文件是transcript_count_matrix.csv
 
