@@ -42,35 +42,15 @@ do
   rm ./4.mapping/"$f".sam
 fi
 
-  stringtie -p $core -G /data01/wangyf/project2/CyprinusCarpio/15.pop/7.annovar/new/genome/genome.gtf -o ./5.transcript_quant/"$f".gtf -l "$f"  ./4.mapping/"$f".sort.bam
-  stringtie --merge -p $core -G /data01/wangyf/project2/CyprinusCarpio/15.pop/7.annovar/new/genome/genome.gtf -o ./5.transcript_quant/stringtie_merged.gtf ./5.transcript_quant/stringtie_mergelist.txt #这一步是进入5.transcript_quant目录在本地跑的
-  stringtie -e -B -p 8 -G /data01/wangyf/project2/CyprinusCarpio/15.pop/7.annovar/new/genome/genome.gtf -o ./5.transcript_quant/2.quant_transcript/"$f"/"$f"_quant.gtf ./4.mapping/"$f".sort.bam
+  stringtie -p $core -G /data01/wangyf/project2/CyprinusCarpio/15.pop/7.annovar/new/genome/genome.gtf -o ./5.transcript_quant/"$f".gtf -l "$f"  ./4.mapping/"$f".sort.bam   # Assamble Transcripts for Each Sample
+  stringtie --merge -p $core -G /data01/wangyf/project2/CyprinusCarpio/15.pop/7.annovar/new/genome/genome.gtf -o ./5.transcript_quant/stringtie_merged.gtf ./5.transcript_quant/stringtie_mergelist.txt  # 这一步是进入5.transcript_quant目录在本地跑的, Merge Transcripts from All Samples
+  stringtie -e -B -p 8 -G /data01/wangyf/project2/CyprinusCarpio/15.pop/7.annovar/new/genome/genome.gtf -o ./5.transcript_quant/2.quant_transcript/"$f"/"$f"_quant.gtf ./4.mapping/"$f".sort.bam   # Quantify
+  
 done
 
 
 
 
-
-
-
-############6.Quantify############
-
-# 定义输入和输出目录
-input_dir="/data01/fanly/03_rnaseq/liver/03.transcript_quant/1.assemble_transcript"
-output_dir="/data01/fanly/03_rnaseq/liver/03.transcript_quant/2.quant_transcript"
-bam_dir="/data01/fanly/03_rnaseq/liver/02.alignment/sorted_bam/"
-
-# 循环处理每个 GTF 文件
-for gtf_file in "$input_dir"/*.gtf; do
-    # 提取文件名
-    filename=$(basename "${gtf_file}" .gtf)
-
-    # 执行 StringTie
-    stringtie -e -B -p 16 \
-        -G "${input_dir}/stringtie_merged.gtf" \
-        -o "${output_dir}/${filename}_quant.gtf" \
-        "${bam_dir}/${filename}.bam"
-done
 
 # 获取raw_counts
 # samplelist.txt里面是每个样本的id和文件的完整路径（tab分隔）；id是每一列的表头
