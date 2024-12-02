@@ -1,3 +1,5 @@
+# Transcript-level expression analysis of RNA-seq experiments with HISAT, StringTie and Ballgown；https://doi.org/10.1038/nprot.2016.095
+
 cd /data01/wangyf/project2/CyprinusCarpio/15.pop/19.supplementary/3.rna-seq
 
 :<<!
